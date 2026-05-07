@@ -1,0 +1,85 @@
+/* =====================================================
+   DPB Portal — Design Tokens (matches Figma Make theme)
+   ===================================================== */
+:root {
+  --font-family:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 16px;
+
+  /* Brand Colors */
+  --primary: #1a3562;
+  --primary-light: #2552a0;
+  --primary-dark: #0e1e3a;
+  --accent: #e8871a;
+  --accent-light: #f5a040;
+
+  /* Surface Colors */
+  --background: #f5f5f5;
+  --surface: #ffffff;
+  --surface-hover: #f0f4ff;
+  --border: rgba(0, 0, 0, 0.1);
+  --border-solid: #d9d9d9;
+
+  /* Text Colors */
+  --text-primary: #030213;
+  --text-secondary: #595959;
+  --text-muted: #8c8c8c;
+  --text-inverse: #ffffff;
+
+  /* Status Colors */
+  --success: #52c41a;
+  --success-bg: #f6ffed;
+  --success-border: #b7eb8f;
+  --warning: #faad14;
+  --warning-bg: #fffbe6;
+  --warning-border: #ffe58f;
+  --error: #ff4d4f;
+  --error-bg: #fff2f0;
+  --error-border: #ffccc7;
+  --info: #1677ff;
+  --info-bg: #e6f4ff;
+  --info-border: #91caff;
+  --processing: #1677ff;
+
+  /* Badge/Tag Colors */
+  --tag-blue-bg: #e6f4ff;
+  --tag-blue-text: #0958d9;
+  --tag-orange-bg: #fff7e6;
+  --tag-orange-text: #d46b08;
+  --tag-red-bg: #fff2f0;
+  --tag-red-text: #cf1322;
+  --tag-green-bg: #f6ffed;
+  --tag-green-text: #389e0d;
+  --tag-purple-bg: #f9f0ff;
+  --tag-purple-text: #531dab;
+  --tag-cyan-bg: #e6fffb;
+  --tag-cyan-text: #08979c;
+  --tag-default-bg: #fafafa;
+  --tag-default-text: #595959;
+  --tag-default-border: #d9d9d9;
+
+  /* Layout */
+  --header-height: 64px;
+  --sidebar-width: 240px;
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+}

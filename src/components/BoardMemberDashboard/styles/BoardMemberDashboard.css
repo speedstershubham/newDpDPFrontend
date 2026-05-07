@@ -1,0 +1,5 @@
+/* BoardMemberDashboard specific styles */
+.hearing-today-badge {
+  background: var(--info);
+  color: #fff;
+}

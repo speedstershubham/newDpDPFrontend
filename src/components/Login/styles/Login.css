@@ -1,0 +1,44 @@
+/* Login page specific styles */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+}
+
+.login-hero {
+  text-align: center;
+  padding: var(--space-10) var(--space-6) var(--space-6);
+}
+
+.login-hero__logo {
+  font-size: 56px;
+  margin-bottom: var(--space-3);
+}
+
+.login-hero__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: var(--space-2);
+}
+
+.login-hero__subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.login-card-wrap {
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-6) var(--space-8);
+}
+
+.login-footer {
+  text-align: center;
+  padding: var(--space-6);
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: auto;
+}

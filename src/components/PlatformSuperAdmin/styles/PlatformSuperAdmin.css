@@ -1,0 +1,8 @@
+/* PlatformSuperAdmin specific styles */
+.monitoring-card--ok {
+  background: var(--success-bg);
+}
+
+.monitoring-card--error {
+  background: var(--error-bg);
+}

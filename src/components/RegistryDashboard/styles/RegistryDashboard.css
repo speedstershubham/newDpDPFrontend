@@ -1,0 +1,236 @@
+/* RegistryDashboard specific styles */
+.vc-link {
+  font-size: 13px;
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* ── Stats row (6 cards) ─────────────────────────────────── */
+.registry-stats-row {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr) !important;
+}
+@media (max-width: 1100px) {
+  .registry-stats-row { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 680px) {
+  .registry-stats-row { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+.registry-stat-card {
+  padding: 16px 18px !important;
+}
+.rsc-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.rsc-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.rsc-sub {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.rsc-sub--positive {
+  color: var(--success);
+}
+
+/* ── Calendar ─────────────────────────────────────────────── */
+.cal-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px 0;
+}
+.cal-grid {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+.cal-grid th {
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-solid);
+}
+.cal-td {
+  border: 1px solid var(--border-solid);
+  vertical-align: top;
+  padding: 6px 8px;
+  height: 90px;
+  width: calc(100% / 7);
+}
+.cal-td--empty {
+  background: var(--surface-hover, #f8f9fa);
+}
+.cal-td--today {
+  background: #ebebeb;
+}
+.cal-day-num {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.cal-td--today .cal-day-num {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.cal-event {
+  font-size: 11px;
+  color: var(--primary);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cal-event::before {
+  content: "•";
+  margin-right: 3px;
+}
+
+/* ── Scheduled Hearings table ─────────────────────────────── */
+.hearing-grn {
+  font-weight: 700;
+  font-size: 14px;
+  font-family: var(--font-mono, monospace);
+}
+.hearing-date {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+.hearing-time {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.hearing-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.hearing-status__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  flex-shrink: 0;
+}
+
+/* ── Board Member Availability ────────────────────────────── */
+.board-member-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-solid);
+}
+.board-member-row:last-child {
+  border-bottom: none;
+}
+.board-member-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+.board-member-role {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.avail--available {
+  color: var(--success);
+  font-size: 13px;
+  font-weight: 500;
+}
+.avail--busy {
+  color: var(--error);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ── Hearing Details Drawer content ──────────────────────── */
+.hd-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+.hd-table tr {
+  border-bottom: 1px solid var(--border-solid);
+}
+.hd-table tr:last-child {
+  border-bottom: none;
+}
+.hd-label {
+  padding: 12px 16px 12px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  vertical-align: top;
+  width: 130px;
+}
+.hd-value {
+  padding: 12px 0;
+  font-size: 14px;
+  color: var(--text-primary);
+  vertical-align: top;
+}
+.hd-value--bold {
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+}
+
+.hd-section {
+  margin-bottom: 24px;
+}
+.hd-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.hd-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.hd-notif-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-solid);
+}
+.hd-notif-row:last-child {
+  border-bottom: none;
+}
+.hd-notif-party {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+.hd-notif-type {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.hd-notif-status {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--success);
+}

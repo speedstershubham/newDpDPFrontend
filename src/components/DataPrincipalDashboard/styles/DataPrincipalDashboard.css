@@ -1,0 +1,20 @@
+/* DataPrincipalDashboard specific styles */
+.toast-notification {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 2000;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  font-size: 14px;
+}
+
+.toast-notification--success {
+  background: var(--success);
+}
+
+.toast-notification--error {
+  background: var(--error);
+}

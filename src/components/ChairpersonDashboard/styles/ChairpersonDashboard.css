@@ -1,0 +1,16 @@
+/* ChairpersonDashboard specific styles */
+.bench-member-card {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.bench-member-card--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stat-trend {
+  font-size: 11px;
+  color: var(--success);
+  margin-top: 4px;
+}

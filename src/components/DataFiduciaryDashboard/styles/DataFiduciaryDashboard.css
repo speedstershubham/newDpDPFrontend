@@ -1,0 +1,12 @@
+/* DataFiduciaryDashboard specific styles */
+.compliance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-solid);
+}
+
+.compliance-row:last-child {
+  border-bottom: none;
+}

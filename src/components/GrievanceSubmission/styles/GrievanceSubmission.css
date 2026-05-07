@@ -1,0 +1,30 @@
+/* GrievanceSubmission specific styles */
+.upload-zone {
+  border: 2px dashed var(--border-solid);
+  border-radius: var(--radius);
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  background: #fafafa;
+  transition: border-color 0.2s;
+}
+
+.upload-zone:hover {
+  border-color: var(--primary);
+}
+
+.upload-zone__icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.grn-display {
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 12px 24px;
+  background: var(--info-bg);
+  border-radius: var(--radius);
+  color: var(--primary);
+  margin-bottom: 24px;
+}

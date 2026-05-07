@@ -1,0 +1,9 @@
+/* ScrutinyDashboard specific styles */
+.deadline-urgent {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.deadline-normal {
+  color: var(--text-secondary);
+}

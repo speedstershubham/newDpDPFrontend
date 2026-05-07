@@ -1,0 +1,6 @@
+/* ReaderDashboard specific styles */
+.no-results {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 32px;
+}

@@ -1,0 +1,26 @@
+/* ComplaintDetailsView specific styles */
+.complaint-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+.document-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.document-row__info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .complaint-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
