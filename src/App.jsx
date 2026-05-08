@@ -5,7 +5,10 @@ import DataPrincipalDashboard from "./components/DataPrincipalDashboard";
 import GrievanceSubmission from "./components/GrievanceSubmission";
 import ComplaintDetailsView from "./components/ComplaintDetailsView";
 import ScrutinyDashboard from "./components/ScrutinyDashboard";
+import EditComplaintPage from "./components/ScrutinyDashboard/EditComplaintPage";
+import ScrutinyProfilePage from "./components/ScrutinyDashboard/ScrutinyProfilePage";
 import ChairpersonDashboard from "./components/ChairpersonDashboard";
+import ChairpersonComplaintDetail from "./components/ChairpersonDashboard/ChairpersonComplaintDetail";
 import RegistryDashboard from "./components/RegistryDashboard";
 import BoardMemberDashboard from "./components/BoardMemberDashboard";
 import ReaderDashboard from "./components/ReaderDashboard";
@@ -108,10 +111,46 @@ export default function App() {
             }
           />
           <Route
+            path="/scrutiny/edit/:grn"
+            element={
+              currentUser?.role === "scrutiny" ? (
+                <EditComplaintPage user={currentUser} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/scrutiny/profile"
+            element={
+              currentUser?.role === "scrutiny" ? (
+                <ScrutinyProfilePage
+                  user={currentUser}
+                  onLogout={handleLogout}
+                />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
             path="/chairperson"
             element={
               currentUser?.role === "chairperson" ? (
                 <ChairpersonDashboard
+                  user={currentUser}
+                  onLogout={handleLogout}
+                />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/chairperson/complaint/:grn"
+            element={
+              currentUser?.role === "chairperson" ? (
+                <ChairpersonComplaintDetail
                   user={currentUser}
                   onLogout={handleLogout}
                 />

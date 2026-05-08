@@ -1,0 +1,398 @@
+/* ======================================================
+   Edit Complaint Page
+   ====================================================== */
+
+.edit-complaint-page {
+  max-width: 1200px;
+}
+
+/* ---- Confirm Update Modal ---- */
+.edit-confirm-overlay {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.edit-confirm-modal {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  max-width: 480px;
+  animation: fadeInUp 0.18s ease;
+  overflow: hidden;
+}
+
+.edit-confirm-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 28px 0;
+}
+
+.edit-confirm-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.edit-confirm-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.edit-confirm-body {
+  padding: 16px 28px 28px;
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.edit-confirm-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 0 28px 24px;
+}
+
+.edit-confirm-cancel {
+  min-width: 88px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.edit-confirm-ok {
+  min-width: 72px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #1677ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 22px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.edit-confirm-ok:hover {
+  background: #0958d9;
+}
+
+/* Breadcrumb */
+.edit-breadcrumb {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.edit-breadcrumb__link {
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.edit-breadcrumb__link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* Page header */
+.edit-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.edit-page-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.edit-page-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.edit-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* "Saved" indicator */
+.edit-saved-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #52c41a;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.edit-saved-indicator--visible {
+  opacity: 1;
+}
+
+/* Save Changes button — dark navy */
+.edit-save-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #1a3562;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.edit-save-btn:hover {
+  background: #142a4f;
+}
+
+/* Two-column body */
+.edit-body {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .edit-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left form card */
+.edit-form-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Required asterisk BEFORE label (override global ::after) */
+.edit-form-card .form-label--required::after {
+  content: "" !important;
+}
+.edit-form-card .form-label--required::before {
+  content: "* ";
+  color: var(--error);
+}
+
+.edit-form-card .form-group {
+  margin-bottom: 20px;
+}
+
+.edit-form-card .form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* 2-col row */
+.edit-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* 3-col row */
+.edit-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 680px) {
+  .edit-row-2,
+  .edit-row-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Read-only inputs — grayed out */
+.edit-input--readonly {
+  background: #f5f5f5 !important;
+  color: var(--text-muted) !important;
+  cursor: default;
+}
+
+/* Input wrapper for char counter (Title only — inside) */
+.edit-input-wrap {
+  position: relative;
+}
+
+.edit-char-count {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* Char counter bar — outside/below textarea */
+.edit-char-count-bar {
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  padding-right: 2px;
+}
+
+/* ---- Right column ---- */
+.edit-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Audit trail card */
+.edit-audit-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.edit-audit-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-solid);
+  margin-bottom: 0;
+}
+
+.edit-audit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 20px 20px 8px;
+}
+
+.edit-audit-item {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 24px;
+  position: relative;
+}
+
+.edit-audit-item:last-child {
+  padding-bottom: 4px;
+}
+
+.edit-audit-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 22px;
+  bottom: 0;
+  width: 1px;
+  background: #d1d5db;
+}
+
+.edit-audit-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2.5px solid #1a3562;
+  flex-shrink: 0;
+  margin-top: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.edit-audit-content {
+  flex: 1;
+}
+
+.edit-audit-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.45;
+}
+
+.edit-audit-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Auto-save info box — dark slate */
+.edit-autosave-box {
+  background: #4a5568;
+  border-radius: 12px;
+  padding: 20px 22px;
+  color: #e2e8f0;
+}
+
+.edit-autosave-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+/* Filled navy circle around info icon */
+.edit-autosave-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: #1a3562;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.edit-autosave-text {
+  font-size: 13px;
+  color: #cbd5e0;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Attachments section */
+.edit-attachments-group {
+  margin-bottom: 0 !important;
+}
+
+.edit-attach-btn {
+  font-size: 13px;
+  padding: 7px 14px;
+  gap: 6px;
+}
+
+.edit-attach-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}

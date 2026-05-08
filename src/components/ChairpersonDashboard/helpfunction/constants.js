@@ -32,10 +32,30 @@ export const REPORTS = [
 ];
 
 export const BENCH_MEMBERS = [
-  { id: "1", name: "Dr. Meera Sharma", role: "Board Member", available: true },
-  { id: "2", name: "Shri Rajesh Verma", role: "Board Member", available: true },
-  { id: "3", name: "Ms. Priya Rao", role: "Board Member", available: false },
-  { id: "4", name: "Shri Amit Kumar", role: "Board Member", available: true },
+  {
+    id: "1",
+    name: "Hon'ble Dr. Anjali Sharma",
+    role: "Member - Legal",
+    cases: 12,
+  },
+  {
+    id: "2",
+    name: "Hon'ble Shri Rajesh Verma",
+    role: "Member - Technical",
+    cases: 8,
+  },
+  {
+    id: "3",
+    name: "Hon'ble Ms. Priya Menon",
+    role: "Member - Judicial",
+    cases: 15,
+  },
+  {
+    id: "4",
+    name: "Hon'ble Shri Arun Patel",
+    role: "Member - Technical",
+    cases: 10,
+  },
 ];
 
 export const REC_CLASS = {

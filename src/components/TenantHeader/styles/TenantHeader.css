@@ -39,3 +39,136 @@
   align-items: center;
   gap: var(--space-2);
 }
+
+/* ── Language button ── */
+.th-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+}
+.th-lang-btn:hover {
+  border-color: #9ca3af;
+}
+
+/* ── Dropdown panel ── */
+.th-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  min-width: 110px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 300;
+  overflow: hidden;
+  padding: 4px 0;
+}
+.th-dropdown__item {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+}
+.th-dropdown__item:hover {
+  background: #f3f4f6;
+}
+.th-dropdown__item--active {
+  font-weight: 600;
+  color: #1a3562;
+}
+
+/* ── Bell icon button ── */
+.th-icon-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #374151;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.th-icon-btn:hover {
+  background: #f3f4f6;
+}
+.th-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 9px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #fff;
+  padding: 0 3px;
+  line-height: 1;
+}
+
+/* ── Avatar button ── */
+.th-user-wrap {
+  position: relative;
+}
+.th-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #1f2937;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.th-avatar:hover {
+  background: #374151;
+}
+
+/* ── User dropdown menu ── */
+.th-user-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  min-width: 148px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  z-index: 300;
+  overflow: hidden;
+  padding: 6px 0;
+}
+.th-user-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+}
+.th-user-menu__item:hover {
+  background: #f3f4f6;
+}

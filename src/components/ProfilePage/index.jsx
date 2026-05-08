@@ -4,101 +4,47 @@ import TenantHeader from "../TenantHeader";
 import ToastNotification from "../shared/ToastNotification";
 import "./styles/ProfilePage.css";
 
-/* ── Role metadata ─────────────────────────────────────────── */
-const ROLE_META = {
-  "data-principal": {
-    icon: "👤",
-    title: "Data Principal",
-    department: "Citizen Portal",
-    org: "Government of India",
-    idLabel: "Aadhaar / PAN",
-  },
-  scrutiny: {
-    icon: "🔍",
-    title: "Scrutiny Officer",
-    department: "Grievance Processing Cell",
-    org: "Data Protection Board of India",
-    empId: "DPB/SW/2024/007",
-  },
-  chairperson: {
-    icon: "🏛️",
-    title: "Chairperson",
-    department: "Adjudication Wing",
-    org: "Data Protection Board of India",
-    empId: "DPB/CP/2024/001",
-  },
-  registry: {
-    icon: "📋",
-    title: "Registry Officer",
-    department: "Hearing Coordination Cell",
-    org: "Data Protection Board of India",
-    empId: "DPB/REG/2024/004",
-  },
-  "board-member": {
-    icon: "⚖️",
-    title: "Board Member",
-    department: "Adjudication Wing",
-    org: "Data Protection Board of India",
-    empId: "DPB/BM/2024/003",
-  },
-  reader: {
-    icon: "📖",
-    title: "Reader",
-    department: "Documentation Cell",
-    org: "Data Protection Board of India",
-    empId: "DPB/RDR/2024/011",
-  },
-  admin: {
-    icon: "🔑",
-    title: "System Administrator",
-    department: "IT & Infrastructure",
-    org: "Data Protection Board of India",
-    empId: "DPB/SA/2024/002",
-  },
-  "super-admin": {
-    icon: "🛡️",
-    title: "Platform Super Admin",
-    department: "Platform Operations",
-    org: "Data Protection Board of India",
-    empId: "DPB/PSA/2024/001",
-  },
-  "data-fiduciary": {
-    icon: "🏢",
-    title: "Data Fiduciary",
-    department: "Compliance",
-    org: "Registered Data Entity",
-    empId: "DPB/DF/2024/001",
-  },
-};
-
-const ACTIVITY = [
-  { label: "Last Login",        value: "07 May 2026, 09:14 AM" },
-  { label: "Session Duration",  value: "4h 12m"                },
-  { label: "Login Device",      value: "Chrome on macOS"       },
-  { label: "IP Address",        value: "192.168.x.x"           },
+const LOGIN_HISTORY = [
+  { ts: "2026-05-06 09:15:23", ip: "192.168.1.100", device: "Chrome on Windows", location: "New Delhi, India", status: "Success" },
+  { ts: "2026-05-05 14:30:45", ip: "192.168.1.100", device: "Chrome on Windows", location: "New Delhi, India", status: "Success" },
+  { ts: "2026-05-05 09:10:12", ip: "192.168.1.100", device: "Chrome on Windows", location: "New Delhi, India", status: "Success" },
+  { ts: "2026-05-04 16:45:33", ip: "192.168.1.100", device: "Chrome on Windows", location: "New Delhi, India", status: "Success" },
 ];
-
-const PERMISSIONS = {
-  "data-principal": ["Submit Grievances", "Track Complaint Status", "Download Orders", "View Hearings"],
-  scrutiny:         ["Review Complaints", "Approve / Reject", "Request Clarification", "Edit Complaint Details"],
-  chairperson:      ["Admit Complaints", "Assign Bench", "Send Notices", "Review Scrutiny Reports"],
-  registry:         ["Schedule Hearings", "Publish Orders", "Send Notifications", "Generate VC Links"],
-  "board-member":   ["Conduct Hearings", "Pass Orders", "View Case Files", "Submit Remarks"],
-  reader:           ["Browse Published Orders", "Download Orders", "View Case Summaries"],
-  admin:            ["Manage Users", "Assign Roles", "Configure Workflows", "View Audit Logs"],
-  "super-admin":    ["Onboard Tenants", "Configure Platform", "Monitor Services", "Manage All Users"],
-  "data-fiduciary": ["File Responses", "View Complaints", "Download Notices", "Track Hearings"],
-};
 
 export default function ProfilePage({ user, onLogout }) {
   const navigate = useNavigate();
   const [toast, setToast] = useState(null);
+<<<<<<< HEAD
   const [editMode, setEditMode] = useState(false);
   const [displayName, setDisplayName] = useState(user?.name || "");
   const [phone, setPhone] = useState("+91-9876543210");
   const [address, setAddress] = useState("123, MG Road, Bangalore, Karnataka - 560001");
   const [stateVal, setStateVal] = useState("Karnataka");
   const [activeSection, setActiveSection] = useState("overview");
+=======
+  const [tab, setTab] = useState("profile");
+
+  const [fullName,      setFullName]      = useState(user?.name || "");
+  const [designation,   setDesignation]   = useState("");
+  const [department,    setDepartment]    = useState("");
+  const [email,         setEmail]         = useState(user?.email || `${user?.role || ""}@dpb.gov.in`);
+  const [phone,         setPhone]         = useState("");
+  const [jurisdiction,  setJurisdiction]  = useState("");
+  const [authorityLevel,setAuthorityLevel]= useState("");
+  const [delegateTo,    setDelegateTo]    = useState("");
+
+  const [curPwd,  setCurPwd]  = useState("");
+  const [newPwd,  setNewPwd]  = useState("");
+  const [confPwd, setConfPwd] = useState("");
+  const [showCur,  setShowCur]  = useState(false);
+  const [showNew,  setShowNew]  = useState(false);
+  const [showConf, setShowConf] = useState(false);
+
+  const [notifEmail, setNotifEmail] = useState(true);
+  const [notifSMS,   setNotifSMS]   = useState(true);
+  const [notifPush,  setNotifPush]  = useState(false);
+  const [notifDaily, setNotifDaily] = useState(true);
+>>>>>>> 951b72d9d4cd9dcf9603d5947c5cdcf38b6c6aec
 
   // notification prefs
   const [notifEmail, setNotifEmail] = useState(true);
@@ -109,14 +55,16 @@ export default function ProfilePage({ user, onLogout }) {
 
   const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(null), 3000); };
 
-  const meta = ROLE_META[user?.role] || ROLE_META["data-principal"];
-  const perms = PERMISSIONS[user?.role] || [];
-  const backPath = user?.role === "data-principal" ? "/data-principal" : `/${user?.role}`;
-
-  const handleSave = () => {
-    setEditMode(false);
-    showToast("Profile updated successfully");
-  };
+  const TABS = [
+    { key: "profile",       label: "Profile Information",
+      icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> },
+    { key: "security",      label: "Security",
+      icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> },
+    { key: "notifications", label: "Notifications",
+      icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg> },
+    { key: "activity",      label: "Login Activity",
+      icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+  ];
 
   // ── Data Principal specific layout ──────────────────────────
   if (user?.role === "data-principal") {
@@ -360,269 +308,210 @@ export default function ProfilePage({ user, onLogout }) {
   return (
     <div className="layout">
       <ToastNotification message={toast} />
-      <TenantHeader user={{ ...user, name: displayName }} onLogout={onLogout} />
+      <TenantHeader user={{ ...user, name: fullName }} onLogout={onLogout} />
 
       <div className="page-content">
-        {/* Page Header */}
-        <div className="profile-page-header">
-          <button className="btn btn--default btn--sm" onClick={() => navigate(backPath)}>
-            ← Back to Dashboard
-          </button>
-          <h1 className="profile-page-title">My Profile</h1>
+        <h1 className="pp-title">My Profile</h1>
+
+        <div className="pp-tabs">
+          {TABS.map((t) => (
+            <button key={t.key} type="button"
+              className={`pp-tab${tab === t.key ? " pp-tab--active" : ""}`}
+              onClick={() => setTab(t.key)}
+            >
+              {t.icon} {t.label}
+            </button>
+          ))}
         </div>
 
-        <div className="profile-layout">
-          {/* ── Left panel ──────────────────────────────────── */}
-          <aside className="profile-aside">
-            <div className="card profile-card">
-              <div className="profile-avatar">{meta.icon}</div>
-              <div className="profile-name">{displayName || "—"}</div>
-              <div className="profile-role-badge">{meta.title}</div>
-              <div className="profile-org">{meta.org}</div>
-              {meta.empId && <div className="profile-empid">ID: {meta.empId}</div>}
+        {/* Profile Information */}
+        {tab === "profile" && (
+          <div className="pp-card">
+            <div className="pp-avatar-wrap">
+              <div className="pp-avatar" />
+              <button type="button" className="pp-change-photo-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Change Photo
+              </button>
+            </div>
 
-              <div className="profile-nav">
-                {[
-                  ["overview",    "📊 Overview"],
-                  ["edit",        "✏️ Edit Profile"],
-                  ["security",    "🔒 Security"],
-                  ["permissions", "🛡️ Permissions"],
-                ].map(([key, label]) => (
-                  <button
-                    key={key}
-                    className={`profile-nav-btn${activeSection === key ? " profile-nav-btn--active" : ""}`}
-                    onClick={() => { setActiveSection(key); setEditMode(key === "edit"); }}
-                  >
-                    {label}
-                  </button>
-                ))}
+            <div className="pp-form-grid">
+              <div className="pp-field">
+                <label className="pp-label"><span className="pp-req">*</span> Full Name</label>
+                <div className="pp-input-wrap">
+                  <svg className="pp-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <input className="pp-input" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                </div>
+              </div>
+              <div className="pp-field">
+                <label className="pp-label">Designation</label>
+                <div className="pp-input-wrap">
+                  <svg className="pp-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  <input className="pp-input" placeholder="e.g., Senior Officer" value={designation} onChange={(e) => setDesignation(e.target.value)} />
+                </div>
+              </div>
+              <div className="pp-field">
+                <label className="pp-label">Department</label>
+                <div className="pp-input-wrap">
+                  <input className="pp-input pp-input--no-icon" placeholder="e.g., Scrutiny Wing" value={department} onChange={(e) => setDepartment(e.target.value)} />
+                </div>
+              </div>
+              <div className="pp-field">
+                <label className="pp-label">Role</label>
+                <div className="pp-input-wrap">
+                  <input className="pp-input pp-input--no-icon pp-input--readonly" value={user?.role || "chairperson"} readOnly />
+                </div>
+              </div>
+              <div className="pp-field">
+                <label className="pp-label"><span className="pp-req">*</span> Email</label>
+                <div className="pp-input-wrap">
+                  <svg className="pp-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <input className="pp-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+              </div>
+              <div className="pp-field">
+                <label className="pp-label">Phone</label>
+                <div className="pp-input-wrap">
+                  <svg className="pp-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                  <input className="pp-input" placeholder="+91 XXXXX XXXXX" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                </div>
               </div>
             </div>
-          </aside>
 
-          {/* ── Right panel ─────────────────────────────────── */}
-          <main className="profile-main">
-
-            {/* Overview */}
-            {activeSection === "overview" && (
-              <>
-                <div className="card mb-6">
-                  <div className="card__header">
-                    <span className="card__title">Account Information</span>
-                    <button
-                      className="btn btn--ghost btn--sm"
-                      onClick={() => { setActiveSection("edit"); setEditMode(true); }}
-                    >
-                      ✏️ Edit
-                    </button>
-                  </div>
-                  <div className="card__body">
-                    <div className="desc-grid desc-grid--3">
-                      <div className="desc-item">
-                        <div className="desc-label">Full Name</div>
-                        <div className="desc-value">{displayName || "—"}</div>
-                      </div>
-                      <div className="desc-item">
-                        <div className="desc-label">Email</div>
-                        <div className="desc-value">{user?.email || `${user?.role}@dpb.gov.in`}</div>
-                      </div>
-                      <div className="desc-item">
-                        <div className="desc-label">Phone</div>
-                        <div className="desc-value">{phone}</div>
-                      </div>
-                      <div className="desc-item">
-                        <div className="desc-label">Role</div>
-                        <div className="desc-value">
-                          <span className="tag tag--blue">{meta.title}</span>
-                        </div>
-                      </div>
-                      <div className="desc-item">
-                        <div className="desc-label">Department</div>
-                        <div className="desc-value">{meta.department}</div>
-                      </div>
-                      <div className="desc-item">
-                        <div className="desc-label">Organization</div>
-                        <div className="desc-value">{meta.org}</div>
-                      </div>
-                      {meta.empId && (
-                        <div className="desc-item">
-                          <div className="desc-label">Employee ID</div>
-                          <div className="desc-value font-mono">{meta.empId}</div>
-                        </div>
-                      )}
-                      <div className="desc-item">
-                        <div className="desc-label">Joined</div>
-                        <div className="desc-value">01 Jan 2024</div>
-                      </div>
-                      <div className="desc-item">
-                        <div className="desc-label">Account Status</div>
-                        <div className="desc-value">
-                          <span className="badge badge--success">Active</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card">
-                  <div className="card__header">
-                    <span className="card__title">Recent Activity</span>
-                  </div>
-                  <div className="card__body">
-                    <div className="desc-grid">
-                      {ACTIVITY.map((a) => (
-                        <div key={a.label} className="desc-item">
-                          <div className="desc-label">{a.label}</div>
-                          <div className="desc-value">{a.value}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* Edit Profile */}
-            {activeSection === "edit" && (
-              <div className="card">
-                <div className="card__header">
-                  <span className="card__title">Edit Profile</span>
-                </div>
-                <div className="card__body">
-                  <div className="grid-2">
-                    <div className="form-group">
-                      <label className="form-label form-label--required">Full Name</label>
-                      <input
-                        className="input"
-                        value={displayName}
-                        onChange={(e) => setDisplayName(e.target.value)}
-                        placeholder="Your full name"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Email</label>
-                      <input
-                        className="input"
-                        type="email"
-                        defaultValue={user?.email || `${user?.role}@dpb.gov.in`}
-                        placeholder="Official email"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Phone Number</label>
-                      <input
-                        className="input"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+91 XXXXX XXXXX"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">Preferred Language</label>
-                      <select className="select">
-                        <option>English</option>
-                        <option>हिन्दी</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Address</label>
-                    <textarea className="textarea" rows={3} placeholder="Official address..." />
-                  </div>
-                  <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                    <button className="btn btn--default" onClick={() => { setActiveSection("overview"); setEditMode(false); }}>
-                      Cancel
-                    </button>
-                    <button className="btn btn--primary" onClick={handleSave}>
-                      💾 Save Changes
-                    </button>
-                  </div>
+            <div className="pp-section-divider"><span>Authority Details</span></div>
+            <div className="pp-form-grid">
+              <div className="pp-field">
+                <label className="pp-label">Jurisdiction</label>
+                <div className="pp-input-wrap">
+                  <input className="pp-input pp-input--no-icon" placeholder="e.g., All India" value={jurisdiction} onChange={(e) => setJurisdiction(e.target.value)} />
                 </div>
               </div>
-            )}
-
-            {/* Security */}
-            {activeSection === "security" && (
-              <div className="card">
-                <div className="card__header">
-                  <span className="card__title">Security Settings</span>
-                </div>
-                <div className="card__body">
-                  <div className="security-row">
-                    <div>
-                      <div className="security-label">Password</div>
-                      <div className="security-desc">Last changed 30 days ago</div>
-                    </div>
-                    <button className="btn btn--default btn--sm" onClick={() => showToast("Password reset link sent to your email")}>
-                      Change Password
-                    </button>
-                  </div>
-                  <div className="security-row">
-                    <div>
-                      <div className="security-label">Two-Factor Authentication</div>
-                      <div className="security-desc">Add an extra layer of security to your account</div>
-                    </div>
-                    <button className="btn btn--primary btn--sm" onClick={() => showToast("2FA setup initiated")}>
-                      Enable 2FA
-                    </button>
-                  </div>
-                  <div className="security-row">
-                    <div>
-                      <div className="security-label">Active Sessions</div>
-                      <div className="security-desc">1 active session — Chrome on macOS</div>
-                    </div>
-                    <button className="btn btn--danger btn--sm" onClick={() => showToast("All other sessions terminated")}>
-                      Revoke All
-                    </button>
-                  </div>
-                  <div className="security-row" style={{ border: "none" }}>
-                    <div>
-                      <div className="security-label">Login History</div>
-                      <div className="security-desc">View last 30 days of login activity</div>
-                    </div>
-                    <button className="btn btn--ghost btn--sm" onClick={() => showToast("Login history downloaded")}>
-                      Download
-                    </button>
-                  </div>
+              <div className="pp-field">
+                <label className="pp-label">Authority Level</label>
+                <div className="pp-input-wrap">
+                  <input className="pp-input pp-input--no-icon pp-input--readonly" placeholder="e.g., Chairperson" value={authorityLevel} readOnly />
                 </div>
               </div>
-            )}
+            </div>
 
-            {/* Permissions */}
-            {activeSection === "permissions" && (
-              <div className="card">
-                <div className="card__header">
-                  <span className="card__title">Role &amp; Permissions</span>
-                </div>
-                <div className="card__body">
-                  <div className="alert alert--info mb-6">
-                    ℹ️ Permissions are assigned based on your role. Contact your System Administrator to request changes.
-                  </div>
-                  <div className="desc-grid mb-6">
-                    <div className="desc-item">
-                      <div className="desc-label">Assigned Role</div>
-                      <div className="desc-value"><span className="tag tag--blue">{meta.title}</span></div>
-                    </div>
-                    <div className="desc-item">
-                      <div className="desc-label">Department</div>
-                      <div className="desc-value">{meta.department}</div>
-                    </div>
-                  </div>
-                  <div className="perm-section-title">Granted Permissions</div>
-                  <div className="perm-grid">
-                    {perms.map((p) => (
-                      <div key={p} className="perm-item">
-                        <span className="perm-check">✓</span>
-                        {p}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            <div className="pp-field" style={{ marginTop: 24 }}>
+              <label className="pp-label">Digital Signature</label>
+              <button type="button" className="pp-upload-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Upload Digital Signature
+              </button>
+              <div className="pp-upload-hint">Accepted formats: .pfx, .p12</div>
+            </div>
+
+            <div className="pp-section-divider" style={{ marginTop: 32 }}><span>Delegation Settings</span></div>
+            <div className="pp-field" style={{ marginTop: 16 }}>
+              <label className="pp-label">Delegate Authority To</label>
+              <div className="pp-input-wrap">
+                <input className="pp-input pp-input--no-icon" placeholder="Select board member" value={delegateTo} onChange={(e) => setDelegateTo(e.target.value)} />
               </div>
-            )}
+            </div>
 
-          </main>
-        </div>
+            <button type="button" className="pp-submit-btn" style={{ marginTop: 28 }}
+              onClick={() => showToast("Profile updated successfully")}>
+              Update Profile
+            </button>
+          </div>
+        )}
+
+        {/* Security */}
+        {tab === "security" && (
+          <div className="pp-card">
+            <div className="pp-card__section-title">Change Password</div>
+            <div className="pp-pwd-form">
+              {[
+                { label: "Current Password",    val: curPwd,  set: setCurPwd,  show: showCur,  setShow: setShowCur  },
+                { label: "New Password",         val: newPwd,  set: setNewPwd,  show: showNew,  setShow: setShowNew  },
+                { label: "Confirm New Password", val: confPwd, set: setConfPwd, show: showConf, setShow: setShowConf },
+              ].map((f, i) => (
+                <div key={i} className="pp-field">
+                  <label className="pp-label"><span className="pp-req">*</span> {f.label}</label>
+                  <div className="pp-pwd-wrap">
+                    <svg className="pp-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                    <input className="pp-pwd-input" type={f.show ? "text" : "password"}
+                      value={f.val} onChange={(e) => f.set(e.target.value)} />
+                    <button type="button" className="pp-eye-btn" onClick={() => f.setShow((v) => !v)}>
+                      {f.show
+                        ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                        : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      }
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <button type="button" className="pp-submit-btn"
+                onClick={() => { setCurPwd(""); setNewPwd(""); setConfPwd(""); showToast("Password changed successfully"); }}>
+                Change Password
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Notifications */}
+        {tab === "notifications" && (
+          <div className="pp-card">
+            <div className="pp-card__section-title">Notification Preferences</div>
+            <div className="pp-notif-list">
+              {[
+                { label: "Email Notifications",  desc: "Receive updates via email",         val: notifEmail, set: setNotifEmail },
+                { label: "SMS Notifications",    desc: "Receive critical alerts via SMS",   val: notifSMS,   set: setNotifSMS   },
+                { label: "Push Notifications",   desc: "Browser push notifications",        val: notifPush,  set: setNotifPush  },
+                { label: "Daily Summary",        desc: "Daily email summary of activities", val: notifDaily, set: setNotifDaily },
+              ].map((n, i) => (
+                <div key={i} className="pp-notif-row">
+                  <div className="pp-notif-info">
+                    <div className="pp-notif-label">{n.label}</div>
+                    <div className="pp-notif-desc">{n.desc}</div>
+                  </div>
+                  <button type="button" className={`pp-toggle${n.val ? " pp-toggle--on" : ""}`}
+                    onClick={() => n.set((v) => !v)} aria-pressed={n.val}>
+                    <span className="pp-toggle__knob" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Login Activity */}
+        {tab === "activity" && (
+          <div className="pp-card">
+            <div className="pp-card__section-title">Recent Login Activity</div>
+            <div className="pp-table-wrap">
+              <table className="pp-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>IP Address</th>
+                    <th>Device</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {LOGIN_HISTORY.map((row, i) => (
+                    <tr key={i}>
+                      <td>{row.ts}</td>
+                      <td>{row.ip}</td>
+                      <td>{row.device}</td>
+                      <td>{row.location}</td>
+                      <td><span className="pp-status-success">{row.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="pp-table-pagination">
+                <button className="pp-page-btn" disabled>‹</button>
+                <button className="pp-page-btn pp-page-btn--active">1</button>
+                <button className="pp-page-btn">›</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

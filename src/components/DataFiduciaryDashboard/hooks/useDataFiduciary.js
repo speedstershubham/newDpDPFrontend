@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 export function useDataFiduciary() {
-  const [activeTab, setActiveTab] = useState("overview");
-  const [responseOpen, setResponseOpen] = useState(false);
-  const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [replyOpen, setReplyOpen] = useState(false);
+  const [selectedNotice, setSelectedNotice] = useState(null);
+  const [replyText, setReplyText] = useState("");
+  const [profileDismissed, setProfileDismissed] = useState(false);
   const [toast, setToast] = useState(null);
 
   const showToast = (msg) => {
@@ -11,11 +12,18 @@ export function useDataFiduciary() {
     setTimeout(() => setToast(null), 3000);
   };
 
+  const openReply = (notice) => {
+    setSelectedNotice(notice);
+    setReplyOpen(true);
+  };
+
   return {
-    activeTab, setActiveTab,
-    responseOpen, setResponseOpen,
-    selectedComplaint, setSelectedComplaint,
+    replyOpen, setReplyOpen,
+    selectedNotice,
+    replyText, setReplyText,
+    profileDismissed, setProfileDismissed,
     toast,
     showToast,
+    openReply,
   };
 }
