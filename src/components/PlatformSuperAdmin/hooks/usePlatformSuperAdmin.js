@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 export function usePlatformSuperAdmin() {
-  const [activeTab, setActiveTab] = useState("tenants");
-  const [addTenantOpen, setAddTenantOpen] = useState(false);
+  const [provisionOpen, setProvisionOpen] = useState(false);
+  const [provisionStep, setProvisionStep] = useState(1);
   const [toast, setToast] = useState(null);
 
   const showToast = (msg) => {
@@ -10,9 +10,13 @@ export function usePlatformSuperAdmin() {
     setTimeout(() => setToast(null), 3000);
   };
 
+  const openProvision = () => { setProvisionStep(1); setProvisionOpen(true); };
+  const closeProvision = () => { setProvisionOpen(false); setProvisionStep(1); };
+
   return {
-    activeTab, setActiveTab,
-    addTenantOpen, setAddTenantOpen,
+    provisionOpen,
+    provisionStep, setProvisionStep,
+    openProvision, closeProvision,
     toast,
     showToast,
   };
