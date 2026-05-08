@@ -149,3 +149,233 @@
   font-size: 15px;
   flex-shrink: 0;
 }
+
+/* ── Data Principal Profile ───────────────────────────────── */
+.dp-profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px 0 !important;
+  margin-bottom: 0;
+}
+
+.dp-profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.dp-profile-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.dp-profile-email {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.dp-profile-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border-solid);
+  width: 100%;
+  gap: 0;
+}
+
+.dp-profile-tab {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.15s;
+  font-weight: 500;
+}
+
+.dp-profile-tab:hover {
+  color: var(--primary);
+}
+
+.dp-profile-tab--active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  font-weight: 600;
+}
+
+/* ── Account Statistics grid ──────────────────────────────── */
+.dp-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.dp-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-solid);
+}
+
+.dp-stat-item:last-child {
+  border-bottom: none;
+}
+
+.dp-stat-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.dp-stat-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.dp-stat-value--primary {
+  color: var(--primary);
+}
+
+.dp-stat-value--info {
+  color: var(--info);
+}
+
+.dp-stat-value--success {
+  color: var(--success);
+}
+
+/* ── Personal Information table ───────────────────────────── */
+.dp-info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dp-info-table tr {
+  border-bottom: 1px solid var(--border-solid);
+}
+
+.dp-info-table tr:last-child {
+  border-bottom: none;
+}
+
+.dp-info-label {
+  padding: 12px 16px 12px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  width: 140px;
+  font-weight: 500;
+  vertical-align: top;
+}
+
+.dp-info-value {
+  padding: 12px 0;
+  font-size: 14px;
+  color: var(--text-primary);
+  vertical-align: top;
+}
+
+/* ── Government ID Verification ───────────────────────────── */
+.dp-id-verified {
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.dp-id-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.dp-id-verified-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #389e0d;
+  margin-bottom: 4px;
+}
+
+.dp-id-verified-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.dp-id-verified-id {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-mono, monospace);
+}
+
+/* ── Notification toggle rows ─────────────────────────────── */
+.dp-notif-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-solid);
+}
+
+.dp-notif-row:last-of-type {
+  border-bottom: none;
+}
+
+/* Toggle switch */
+.dp-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.dp-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.dp-toggle__slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border-solid);
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dp-toggle__slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.dp-toggle input:checked + .dp-toggle__slider {
+  background: var(--primary);
+}
+
+.dp-toggle input:checked + .dp-toggle__slider::before {
+  transform: translateX(20px);
+}
+

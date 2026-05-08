@@ -3,17 +3,18 @@ import TenantHeader from "../TenantHeader";
 import PageHeader from "../shared/PageHeader";
 import ToastNotification from "../shared/ToastNotification";
 import StatCard from "../shared/StatCard";
-import Drawer from "../shared/Drawer";
 import Modal from "../shared/Modal";
 import Pagination from "../shared/Pagination";
+import ComplaintDetailsView from "../ComplaintDetailsView";
 import { useGrievanceDashboard } from "./hooks/useGrievanceDashboard";
 import {
   NOTIFICATIONS,
   MAX_COMPLAINTS,
   MAX_ACTIVE,
-  STATUS_TIMELINE_STEPS,
   StatusBadge,
   PriorityTag,
+  DRAFTS,
+  RECYCLE_BIN_ITEMS,
 } from "./helpfunction/constants.jsx";
 import "./styles/DataPrincipalDashboard.css";
 
@@ -34,6 +35,13 @@ export default function DataPrincipalDashboard({ user, onLogout }) {
     page, setPage, totalPages,
     pagedGrievances,
     filteredGrievances,
+    draftsOpen, setDraftsOpen,
+    recycleBinOpen, setRecycleBinOpen,
+    recycleBinItems,
+    autosaveBannerVisible, setAutosaveBannerVisible,
+    handleRestoreItem,
+    handleDeleteForever,
+    handleEmptyRecycleBin,
   } = useGrievanceDashboard();
 
   return (
@@ -59,8 +67,8 @@ export default function DataPrincipalDashboard({ user, onLogout }) {
           title="My Grievances"
           subtitle={`Track and manage your data protection grievances (${totalComplaints}/${MAX_COMPLAINTS} used)`}
           actions={<>
-            <button className="btn btn--default">💾 Drafts (3)</button>
-            <button className="btn btn--default">🗑 Recycle Bin</button>
+            <button className="btn btn--default" onClick={() => setDraftsOpen(true)}>💾 Drafts ({DRAFTS.length})</button>
+            <button className="btn btn--default" onClick={() => setRecycleBinOpen(true)}>🗑 Recycle Bin</button>
             <button className="btn btn--primary btn--lg" onClick={handleFileNew}>+ File New Grievance</button>
           </>}
         />
@@ -126,7 +134,7 @@ export default function DataPrincipalDashboard({ user, onLogout }) {
                             className="btn btn--link btn--sm"
                             onClick={() => { setSelected(g); setDrawerOpen(true); }}
                           >
-                            👁 View
+                            👁 View Details
                           </button>
                           {["submitted", "under-scrutiny", "admitted"].includes(g.status) && (
                             <button
@@ -163,73 +171,12 @@ export default function DataPrincipalDashboard({ user, onLogout }) {
         </div>
       </div>
 
-      {/* Grievance Detail Drawer */}
+      {/* Grievance Detail Drawer — full ComplaintDetailsView */}
       {drawerOpen && selected && (
-        <Drawer
-          title="Grievance Details"
+        <ComplaintDetailsView
+          caseData={selected}
           onClose={() => setDrawerOpen(false)}
-          footer={<>
-            {["submitted", "under-scrutiny", "admitted"].includes(selected.status) && (
-              <button className="btn btn--danger" onClick={() => setRevokeOpen(true)}>Revoke Grievance</button>
-            )}
-            <button className="btn btn--default" onClick={() => setDrawerOpen(false)}>Close</button>
-          </>}
-        >
-              <div className="desc-grid mb-6">
-                <div className="desc-item">
-                  <div className="desc-label">GRN</div>
-                  <div className="desc-value font-mono">{selected.grn}</div>
-                </div>
-                <div className="desc-item">
-                  <div className="desc-label">Status</div>
-                  <div className="desc-value"><StatusBadge status={selected.status} /></div>
-                </div>
-                <div className="desc-item">
-                  <div className="desc-label">Respondent</div>
-                  <div className="desc-value">{selected.respondent}</div>
-                </div>
-                <div className="desc-item">
-                  <div className="desc-label">Priority</div>
-                  <div className="desc-value"><PriorityTag priority={selected.priority} /></div>
-                </div>
-                <div className="desc-item">
-                  <div className="desc-label">Filed Date</div>
-                  <div className="desc-value">{selected.filedDate}</div>
-                </div>
-                {selected.hearingDate && (
-                  <div className="desc-item">
-                    <div className="desc-label">Hearing Date</div>
-                    <div className="desc-value">{selected.hearingDate} {selected.hearingTime}</div>
-                  </div>
-                )}
-              </div>
-              <div className="desc-item mb-6">
-                <div className="desc-label">Subject</div>
-                <div className="desc-value">{selected.subject}</div>
-              </div>
-
-              <h4 className="mb-4">Case Progress</h4>
-              <ul className="timeline">
-                {["Submitted", "Under Scrutiny", "Admitted", "Hearing Scheduled", "Order Issued"].map(
-                  (step, i) => (
-                    <li key={i} className="timeline__item">
-                      <div
-                        className="timeline__dot"
-                        style={{
-                          background:
-                            i <= STATUS_TIMELINE_STEPS.indexOf(selected.status)
-                              ? "var(--primary)"
-                              : "var(--border-solid)",
-                        }}
-                      />
-                      <div className="timeline__content">
-                        <div className="timeline__title">{step}</div>
-                      </div>
-                    </li>
-                  )
-                )}
-              </ul>
-        </Drawer>
+        />
       )}
 
       {/* Revoke Modal */}
@@ -247,6 +194,149 @@ export default function DataPrincipalDashboard({ user, onLogout }) {
             <label className="form-label form-label--required">Reason for Revocation</label>
             <textarea className="textarea" placeholder="Please provide the reason..." value={revokeReason} onChange={(e) => setRevokeReason(e.target.value)} rows={4} />
           </div>
+        </Modal>
+      )}
+
+      {/* Draft Complaints Modal */}
+      {draftsOpen && (
+        <Modal
+          title={
+            <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              Draft Complaints <span className="badge badge--info">{DRAFTS.length}/{MAX_COMPLAINTS}</span>
+            </span>
+          }
+          onClose={() => setDraftsOpen(false)}
+          maxWidth={820}
+          footer={<button className="btn btn--default" onClick={() => setDraftsOpen(false)}>Close</button>}
+        >
+          {autosaveBannerVisible && (
+            <div className="draft-autosave-banner mb-4">
+              <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <span className="draft-autosave-icon">ℹ</span>
+                <div style={{ flex: 1 }}>
+                  <strong>Auto-Save Enabled</strong>
+                  <p style={{ fontSize: 13, marginTop: 4, color: "var(--text-secondary)" }}>
+                    Your complaint is automatically saved as a draft every 2 minutes while you're filling the form. You can continue from where you left off anytime.
+                  </p>
+                </div>
+                <button className="modal__close" style={{ fontSize: 18, lineHeight: 1 }} onClick={() => setAutosaveBannerVisible(false)}>×</button>
+              </div>
+            </div>
+          )}
+          <div className="table-wrapper" style={{ margin: 0 }}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Draft ID</th>
+                  <th>Subject</th>
+                  <th>Respondent</th>
+                  <th>Current Step</th>
+                  <th>Completion</th>
+                  <th>Last Saved</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DRAFTS.map((d) => (
+                  <tr key={d.id}>
+                    <td><span className="td-mono">{d.id}</span></td>
+                    <td style={{ maxWidth: 180 }} title={d.subject}>{d.subjectShort}</td>
+                    <td>{d.respondent}</td>
+                    <td><span className="badge badge--processing">{d.step}</span></td>
+                    <td>
+                      <span className={`draft-completion draft-completion--${d.completion >= 70 ? "high" : d.completion >= 40 ? "mid" : "low"}`}>
+                        {d.completion}%
+                      </span>
+                    </td>
+                    <td style={{ whiteSpace: "nowrap", fontSize: 13 }}>
+                      <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                        🕐 {d.lastSaved}
+                      </span>
+                    </td>
+                    <td>
+                      <div style={{ display: "flex", gap: 6 }}>
+                        <button className="btn btn--primary btn--sm" onClick={() => { setDraftsOpen(false); showToast("Resuming draft..."); }}>✏️ Continue</button>
+                        <button className="btn btn--outline-danger btn--sm" onClick={() => showToast("Draft deleted", "error")}>🗑 Delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Modal>
+      )}
+
+      {/* Recycle Bin Modal */}
+      {recycleBinOpen && (
+        <Modal
+          title={
+            <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              🗑 Recycle Bin <span className="badge badge--error">{recycleBinItems.length} items</span>
+            </span>
+          }
+          onClose={() => setRecycleBinOpen(false)}
+          maxWidth={900}
+          footer={<>
+            <button className="btn btn--outline-danger" onClick={() => { handleEmptyRecycleBin(); }}>Empty Recycle Bin</button>
+            <button className="btn btn--default" onClick={() => setRecycleBinOpen(false)}>Close</button>
+          </>}
+        >
+          <div className="recycle-retention-banner mb-4">
+            <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+              <span style={{ fontSize: 20 }}>⚠️</span>
+              <div>
+                <strong>Retention Period: 30 Days</strong>
+                <p style={{ fontSize: 13, marginTop: 4, color: "var(--text-secondary)" }}>
+                  Deleted complaints are kept in the recycle bin for 30 days. After that, they are permanently deleted and cannot be recovered.
+                </p>
+              </div>
+            </div>
+          </div>
+          {recycleBinItems.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "32px 0", color: "var(--text-secondary)" }}>
+              <div style={{ fontSize: 40, marginBottom: 8 }}>🗑</div>
+              <p>Recycle bin is empty</p>
+            </div>
+          ) : (
+            <div className="table-wrapper" style={{ margin: 0 }}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>GRN</th>
+                    <th>Subject</th>
+                    <th>Respondent</th>
+                    <th>Deleted Date</th>
+                    <th>Days Left</th>
+                    <th>Reason</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recycleBinItems.map((item) => (
+                    <tr key={item.grn}>
+                      <td><span className="td-mono" style={{ fontSize: 12 }}>{item.grn}</span></td>
+                      <td style={{ maxWidth: 180 }} title={item.subject}>{item.subjectShort}</td>
+                      <td>{item.respondent}</td>
+                      <td>{item.deletedDate}</td>
+                      <td>
+                        <span className={`recycle-days recycle-days--${item.daysLeft <= 5 ? "urgent" : "normal"}`}>
+                          🕐 {item.daysLeft} days
+                        </span>
+                      </td>
+                      <td style={{ fontSize: 13 }}>{item.reason}</td>
+                      <td>
+                        <div style={{ display: "flex", gap: 6 }}>
+                          <button className="btn btn--primary btn--sm" onClick={() => handleRestoreItem(item.grn)}>↩ Restore</button>
+                          <button className="btn btn--outline-danger btn--sm" onClick={() => handleDeleteForever(item.grn)}>🗑 Delete Forever</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </Modal>
       )}
     </div>
