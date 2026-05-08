@@ -9,17 +9,16 @@ import {
   RESPONDENT_TYPES,
   ASK_QUESTION_FAQ,
   DF_SPECIFIC_CATEGORIES,
-  generateGRN,
 } from "./helpfunction/constants";
 import "./styles/GrievanceSubmission.css";
 
 export default function GrievanceSubmission({ user, onLogout }) {
   const navigate = useNavigate();
   const {
-    step, setStep, form, errors, submitted,
+    step, setStep, form, errors, submitted, grn,
     questionInput, setQuestionInput, questionAnswers, addCustomQuestion,
     set, handleNext, handleBack, handleSubmit,
-  } = useGrievanceForm();
+  } = useGrievanceForm(user);
 
   if (submitted) {
     return (
@@ -34,7 +33,7 @@ export default function GrievanceSubmission({ user, onLogout }) {
               <div style={{ fontSize: 56, marginBottom: 16 }}>✅</div>
               <h2 style={{ color: "var(--success)", marginBottom: 8 }}>Grievance Submitted!</h2>
               <p className="text-muted mb-4">Your GRN has been generated:</p>
-              <div className="grn-display">{generateGRN()}</div>
+              <div className="grn-display">{grn}</div>
               <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 24 }}>
                 You will be notified via email and SMS when there are updates to your grievance.
               </p>

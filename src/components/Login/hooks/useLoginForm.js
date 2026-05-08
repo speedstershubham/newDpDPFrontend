@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OTP_LENGTH } from "../helpfunction/constants";
+import { OTP_LENGTH, getRoleId } from "../helpfunction/constants";
 
 export function useLoginForm(onLogin) {
   const [activeTab, setActiveTab] = useState("citizen");
@@ -38,7 +38,14 @@ export function useLoginForm(onLogin) {
         setCitizenErr("Please enter the complete 6-digit OTP.");
         return;
       }
-      onLogin({ role: "data-principal", name: "Rahul Kumar", id: idType });
+      onLogin({
+        role: "data-principal",
+        roleId: "role-data-principal",
+        id: `user-${Date.now()}`,
+        name: "Rahul Kumar",
+        tenantId: "tenant-dpdp",
+        idType,
+      });
     }
   };
 
@@ -53,7 +60,14 @@ export function useLoginForm(onLogin) {
       setOfficialErr("Please enter your password.");
       return;
     }
-    onLogin({ role, name: username, email: username });
+    onLogin({
+      role,
+      roleId: getRoleId(role),
+      id: `user-${Date.now()}`,
+      name: username,
+      email: username,
+      tenantId: "tenant-dpdp",
+    });
   };
 
   return {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { VISUAL_BUILDER_ROLES } from "./helpfunction/constants";
+import { useWorkflow } from "../../context/WorkflowContext";
 
 const INITIAL_STAGES = [
   {
@@ -11,7 +12,8 @@ const INITIAL_STAGES = [
   },
 ];
 
-export default function VisualBuilder() {
+export default function VisualBuilder({ onSaved }) {
+  const { createWorkflow, updateWorkflow } = useWorkflow();
   const [stages, setStages] = useState(INITIAL_STAGES);
   const [workflowName, setWorkflowName] = useState("New Workflow");
   const [description, setDescription] = useState("");
@@ -75,6 +77,30 @@ export default function VisualBuilder() {
       ...prev,
       { id, name: "New Stage", sla: "48 hours", assignedRoles: [], actions: [] },
     ]);
+  };
+
+  const handleSave = () => {
+    const def = {
+      name: workflowName,
+      description,
+      category,
+      status: "Active",
+      stages: stages.map((s, idx) => ({
+        id:            s.id,
+        name:          s.name,
+        order:         idx + 1,
+        sla:           s.sla,
+        // Convert role objects → roleId strings for the context
+        assignedRoles: s.assignedRoles.map((r) => r.id),
+        actions: s.actions.map((label, i) => ({
+          key:         label.toLowerCase().replace(/\s+/g, "-"),
+          label,
+          nextStageId: stages[idx + 1]?.id ?? null,
+        })),
+      })),
+    };
+    createWorkflow(def);
+    if (onSaved) onSaved(def);
   };
 
   return (
@@ -157,7 +183,7 @@ export default function VisualBuilder() {
               </svg>
               Preview
             </button>
-            <button className="vb-btn-save">
+            <button className="vb-btn-save" onClick={handleSave}>
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
                 <rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" strokeWidth="1.6"/>
                 <path d="M7 3v5h6V3M7 13h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>

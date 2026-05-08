@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { STEPS, INITIAL_FORM } from "../helpfunction/constants";
+import { useWorkflow } from "../../../context/WorkflowContext";
 
-export function useGrievanceForm() {
+export function useGrievanceForm(user) {
+  const { submitComplaint } = useWorkflow();
   const [step, setStep] = useState(0);
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [grn, setGrn] = useState(null);
   const [questionInput, setQuestionInput] = useState("");
   const [questionAnswers, setQuestionAnswers] = useState([]);
 
@@ -50,6 +53,19 @@ export function useGrievanceForm() {
 
   const handleSubmit = () => {
     if (!validate()) return;
+    const newGrn = submitComplaint({
+      subject:     form.subject,
+      description: form.description,
+      priority:    "Medium",
+      category:    form.category,
+      filedBy: {
+        userId: user?.id   ?? "",
+        name:   user?.name ?? "Citizen",
+        email:  user?.email ?? "",
+      },
+      formData: form,
+    });
+    setGrn(newGrn);
     setSubmitted(true);
   };
 
@@ -58,6 +74,7 @@ export function useGrievanceForm() {
     form,
     errors,
     submitted,
+    grn,
     questionInput, setQuestionInput,
     questionAnswers,
     addCustomQuestion,

@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { WorkflowProvider } from "./context/WorkflowContext";
+import RoleDashboard from "./components/RoleDashboard";
 import Login from "./components/Login";
 import DataPrincipalDashboard from "./components/DataPrincipalDashboard";
 import GrievanceSubmission from "./components/GrievanceSubmission";
@@ -49,6 +51,7 @@ export default function App() {
 
   return (
     <TenantContext.Provider value={tenantConfig}>
+      <WorkflowProvider>
       <BrowserRouter>
         <Routes>
           <Route
@@ -255,8 +258,22 @@ export default function App() {
               )
             }
           />
+
+          {/* ── Generic RoleDashboard — catches any dynamic role
+               created by a tenant that has no hardcoded component ── */}
+          <Route
+            path="/:role"
+            element={
+              currentUser ? (
+                <RoleDashboard user={currentUser} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
+      </WorkflowProvider>
     </TenantContext.Provider>
   );
 }

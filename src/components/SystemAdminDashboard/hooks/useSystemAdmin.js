@@ -1,9 +1,11 @@
 import { useState, useMemo } from "react";
 import { USERS, AUDIT_LOGS } from "../helpfunction/constants";
+import { useWorkflow } from "../../../context/WorkflowContext";
 
 const USER_PAGE_SIZE = 8;
 
 export function useSystemAdmin() {
+  const { createWorkflow, createRole, createPermission } = useWorkflow();
   /* ── Navigation ─────────────────────────────────────────── */
   const [activeTab, setActiveTab]       = useState("workflow");
   const [activeSubTab, setActiveSubTab] = useState("workflow-templates");
@@ -24,8 +26,19 @@ export function useSystemAdmin() {
   const openCreateWorkflow  = () => setCreateWorkflowOpen(true);
   const closeCreateWorkflow = () => setCreateWorkflowOpen(false);
   const saveWorkflow = (wf) => {
+    createWorkflow(wf);
     showToast(`Workflow "${wf.name}" created`);
     closeCreateWorkflow();
+  };
+
+  const handleContextCreateRole = (role) => {
+    createRole(role);
+    showToast(`Role "${role.name}" created`);
+  };
+
+  const handleContextCreatePermission = (perm) => {
+    createPermission(perm);
+    showToast(`Permission "${perm.key}" created`);
   };
 
   /* ── User Management ────────────────────────────────────── */
@@ -92,6 +105,7 @@ export function useSystemAdmin() {
     createWorkflowOpen,
     openCreateWorkflow, closeCreateWorkflow, saveWorkflow,
     handleEditWorkflow, handleDuplicateWorkflow,
+    handleContextCreateRole, handleContextCreatePermission,
 
     /* users */
     addUserOpen,

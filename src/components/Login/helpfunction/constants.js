@@ -8,12 +8,17 @@ export const ID_OPTIONS = [
 ];
 
 export const OFFICIAL_ROLES = [
-  { value: "scrutiny", label: "Scrutiny Wing" },
-  { value: "chairperson", label: "Chairperson" },
-  { value: "registry", label: "Registry" },
-  { value: "board-member", label: "Board Member" },
-  { value: "data-fiduciary", label: "Data Fiduciary" },
-  { value: "reader", label: "Reader" },
-  { value: "admin", label: "System Admin" },
-  { value: "super-admin", label: "Platform Super Admin" },
+  { value: "scrutiny",      label: "Scrutiny Wing",         roleId: "role-scrutiny"    },
+  { value: "chairperson",   label: "Chairperson",           roleId: "role-chairperson" },
+  { value: "registry",      label: "Registry",              roleId: "role-registry"    },
+  { value: "board-member",  label: "Board Member",          roleId: "role-board"       },
+  { value: "data-fiduciary",label: "Data Fiduciary",        roleId: "role-fiduciary"   },
+  { value: "reader",        label: "Reader",                roleId: "role-reader"      },
+  { value: "admin",         label: "System Admin",          roleId: "role-admin"       },
+  { value: "super-admin",   label: "Platform Super Admin",  roleId: "role-super-admin" },
 ];
+
+/** Returns the context roleId for a given role slug */
+export function getRoleId(roleSlug) {
+  return OFFICIAL_ROLES.find((r) => r.value === roleSlug)?.roleId ?? `role-${roleSlug}`;
+}
