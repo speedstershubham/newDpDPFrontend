@@ -153,6 +153,14 @@ h4 {
 .btn--danger:hover:not(:disabled) {
   background: #d9363e;
 }
+.btn--outline-danger {
+  background: transparent;
+  color: var(--error);
+  border-color: var(--error);
+}
+.btn--outline-danger:hover:not(:disabled) {
+  background: #fff1f0;
+}
 .btn--ghost {
   background: transparent;
   color: var(--primary);

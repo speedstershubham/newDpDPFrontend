@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { GRIEVANCES, MAX_COMPLAINTS, MAX_ACTIVE } from "../helpfunction/constants.jsx";
+import { GRIEVANCES, MAX_COMPLAINTS, MAX_ACTIVE, RECYCLE_BIN_ITEMS } from "../helpfunction/constants.jsx";
 
 const PAGE_SIZE = 5;
 
@@ -14,6 +14,12 @@ export function useGrievanceDashboard() {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("all");
   const [page, setPage] = useState(1);
+
+  // Draft & Recycle Bin modal states
+  const [draftsOpen, setDraftsOpen] = useState(false);
+  const [recycleBinOpen, setRecycleBinOpen] = useState(false);
+  const [recycleBinItems, setRecycleBinItems] = useState(RECYCLE_BIN_ITEMS);
+  const [autosaveBannerVisible, setAutosaveBannerVisible] = useState(true);
 
   const totalComplaints = GRIEVANCES.length;
   const activeComplaints = GRIEVANCES.filter(
@@ -59,6 +65,21 @@ export function useGrievanceDashboard() {
   const handleSearch = (val) => { setSearch(val); setPage(1); };
   const handleTab = (tab) => { setActiveTab(tab); setPage(1); };
 
+  const handleRestoreItem = (grn) => {
+    setRecycleBinItems((prev) => prev.filter((i) => i.grn !== grn));
+    showToast("Complaint restored successfully");
+  };
+
+  const handleDeleteForever = (grn) => {
+    setRecycleBinItems((prev) => prev.filter((i) => i.grn !== grn));
+    showToast("Complaint permanently deleted", "error");
+  };
+
+  const handleEmptyRecycleBin = () => {
+    setRecycleBinItems([]);
+    showToast("Recycle bin emptied", "error");
+  };
+
   return {
     drawerOpen, setDrawerOpen,
     selected, setSelected,
@@ -75,5 +96,12 @@ export function useGrievanceDashboard() {
     page, setPage, totalPages,
     pagedGrievances,
     filteredGrievances,
+    draftsOpen, setDraftsOpen,
+    recycleBinOpen, setRecycleBinOpen,
+    recycleBinItems,
+    autosaveBannerVisible, setAutosaveBannerVisible,
+    handleRestoreItem,
+    handleDeleteForever,
+    handleEmptyRecycleBin,
   };
 }

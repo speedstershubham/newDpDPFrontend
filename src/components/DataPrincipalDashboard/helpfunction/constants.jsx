@@ -81,6 +81,57 @@ export const NOTIFICATIONS = [
 export const MAX_COMPLAINTS = 10;
 export const MAX_ACTIVE = 5;
 
+export const DRAFTS = [
+  {
+    id: "DRAFT-001",
+    subject: "Data breach by online shopping platform",
+    subjectShort: "Data breach by o...",
+    respondent: "ShopFast India",
+    step: "Document Upload",
+    completion: 75,
+    lastSaved: "2026-04-29 03:45 PM",
+  },
+  {
+    id: "DRAFT-002",
+    subject: "Unauthorized employee data sharing",
+    subjectShort: "Unauthorized em...",
+    respondent: "TechCorp Solutions",
+    step: "Grievance Details",
+    completion: 50,
+    lastSaved: "2026-04-28 11:20 AM",
+  },
+  {
+    id: "DRAFT-003",
+    subject: "Personal data not deleted on request",
+    subjectShort: "Personal data not...",
+    respondent: "DataHub Analytics",
+    step: "Respondent Details",
+    completion: 25,
+    lastSaved: "2026-04-27 06:30 PM",
+  },
+];
+
+export const RECYCLE_BIN_ITEMS = [
+  {
+    grn: "GRN/2026/DPB/001220",
+    subject: "Duplicate submission of consent complaint",
+    subjectShort: "Duplicate submissio...",
+    respondent: "CloudStore Services",
+    deletedDate: "2026-04-25",
+    daysLeft: 5,
+    reason: "Duplicate complaint",
+  },
+  {
+    grn: "GRN/2026/DPB/001198",
+    subject: "Issue resolved directly with company",
+    subjectShort: "Issue resolved direc...",
+    respondent: "FinTech Systems",
+    deletedDate: "2026-04-20",
+    daysLeft: 10,
+    reason: "Resolved outside Board",
+  },
+];
+
 export const STATUS_TIMELINE_STEPS = [
   "submitted",
   "under-scrutiny",
