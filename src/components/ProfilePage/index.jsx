@@ -14,14 +14,6 @@ const LOGIN_HISTORY = [
 export default function ProfilePage({ user, onLogout }) {
   const navigate = useNavigate();
   const [toast, setToast] = useState(null);
-<<<<<<< HEAD
-  const [editMode, setEditMode] = useState(false);
-  const [displayName, setDisplayName] = useState(user?.name || "");
-  const [phone, setPhone] = useState("+91-9876543210");
-  const [address, setAddress] = useState("123, MG Road, Bangalore, Karnataka - 560001");
-  const [stateVal, setStateVal] = useState("Karnataka");
-  const [activeSection, setActiveSection] = useState("overview");
-=======
   const [tab, setTab] = useState("profile");
 
   const [fullName,      setFullName]      = useState(user?.name || "");
@@ -39,12 +31,8 @@ export default function ProfilePage({ user, onLogout }) {
   const [showCur,  setShowCur]  = useState(false);
   const [showNew,  setShowNew]  = useState(false);
   const [showConf, setShowConf] = useState(false);
-
-  const [notifEmail, setNotifEmail] = useState(true);
-  const [notifSMS,   setNotifSMS]   = useState(true);
   const [notifPush,  setNotifPush]  = useState(false);
   const [notifDaily, setNotifDaily] = useState(true);
->>>>>>> 951b72d9d4cd9dcf9603d5947c5cdcf38b6c6aec
 
   // notification prefs
   const [notifEmail, setNotifEmail] = useState(true);
