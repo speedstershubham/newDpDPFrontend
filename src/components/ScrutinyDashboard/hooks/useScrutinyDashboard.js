@@ -12,11 +12,15 @@ export function useScrutinyDashboard() {
   // Edit
   const [editOpen, setEditOpen] = useState(false);
   const [editForm, setEditForm] = useState({});
-  // Profile
-  const [profileOpen, setProfileOpen] = useState(false);
+  // Alert
+  const [alertDismissed, setAlertDismissed] = useState(false);
+  // Action forward-to
+  const [forwardTo, setForwardTo] = useState("chairperson");
   // Grouping / filtering
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("all");
+  const [filterLevel, setFilterLevel] = useState("all");
+  const [filterPriority, setFilterPriority] = useState("urgent");
   const [groupBy, setGroupBy] = useState("none");
   const [page, setPage] = useState(1);
 
@@ -34,7 +38,11 @@ export function useScrutinyDashboard() {
     setRemarks("");
   };
 
-  const openEdit = (g) => { setSelected(g); setEditForm({ ...g }); setEditOpen(true); };
+  const openEdit = (g) => {
+    setSelected(g);
+    setEditForm({ ...g });
+    setEditOpen(true);
+  };
   const submitEdit = () => {
     showToast("Complaint updated successfully");
     setEditOpen(false);
@@ -42,7 +50,7 @@ export function useScrutinyDashboard() {
 
   const TAB_FILTERS = {
     all: () => true,
-    pending: (g) => g.status === "pending-review",
+    pending: (g) => g.status === "pending",
     under: (g) => g.status === "under-review",
     clarification: (g) => g.status === "clarification-requested",
     approved: (g) => g.status === "approved",
@@ -50,10 +58,17 @@ export function useScrutinyDashboard() {
 
   const filteredGrievances = useMemo(() => {
     const q = search.toLowerCase();
-    return GRIEVANCES.filter(TAB_FILTERS[activeTab] ?? (() => true)).filter(
-      (g) => !q || g.grn.toLowerCase().includes(q) || g.subject.toLowerCase().includes(q) || g.respondent.toLowerCase().includes(q),
-    );
-  }, [search, activeTab]);
+    return GRIEVANCES.filter(TAB_FILTERS[activeTab] ?? (() => true))
+      .filter((g) => filterLevel === "all" || g.scrutinyLevel === filterLevel)
+      .filter((g) => filterPriority === "all" || g.priority === filterPriority)
+      .filter(
+        (g) =>
+          !q ||
+          g.grn.toLowerCase().includes(q) ||
+          g.subject.toLowerCase().includes(q) ||
+          g.respondent.toLowerCase().includes(q),
+      );
+  }, [search, activeTab, filterLevel, filterPriority]);
 
   const groupedGrievances = useMemo(() => {
     if (groupBy === "none") return { "": filteredGrievances };
@@ -64,27 +79,62 @@ export function useScrutinyDashboard() {
     }, {});
   }, [filteredGrievances, groupBy]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredGrievances.length / PAGE_SIZE));
-  const pagedGrievances = filteredGrievances.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredGrievances.length / PAGE_SIZE),
+  );
+  const pagedGrievances = filteredGrievances.slice(
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE,
+  );
 
-  const handleSearch = (val) => { setSearch(val); setPage(1); };
-  const handleTab = (tab) => { setActiveTab(tab); setPage(1); };
+  const handleSearch = (val) => {
+    setSearch(val);
+    setPage(1);
+  };
+  const handleTab = (tab) => {
+    setActiveTab(tab);
+    setPage(1);
+  };
 
   return {
-    selected, setSelected,
-    drawerOpen, setDrawerOpen,
-    actionModal, setActionModal,
-    remarks, setRemarks,
+    selected,
+    setSelected,
+    drawerOpen,
+    setDrawerOpen,
+    actionModal,
+    setActionModal,
+    remarks,
+    setRemarks,
     toast,
     showToast,
     handleAction,
     submitAction,
-    editOpen, setEditOpen, editForm, setEditForm, openEdit, submitEdit,
-    profileOpen, setProfileOpen,
-    search, handleSearch,
-    activeTab, handleTab,
-    groupBy, setGroupBy,
-    page, setPage, totalPages, pagedGrievances, filteredGrievances,
+    editOpen,
+    setEditOpen,
+    editForm,
+    setEditForm,
+    openEdit,
+    submitEdit,
+    alertDismissed,
+    setAlertDismissed,
+    forwardTo,
+    setForwardTo,
+    search,
+    handleSearch,
+    activeTab,
+    handleTab,
+    filterLevel,
+    setFilterLevel,
+    filterPriority,
+    setFilterPriority,
+    groupBy,
+    setGroupBy,
+    page,
+    setPage,
+    totalPages,
+    pagedGrievances,
+    filteredGrievances,
     groupedGrievances,
   };
 }

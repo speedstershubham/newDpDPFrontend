@@ -1,0 +1,579 @@
+/* Scrutiny — My Profile (matches queue visual language) */
+
+.scrutiny-profile-layout .page-content.scrutiny-profile-page {
+  background: #f8f9fa;
+}
+
+.scrutiny-profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scrutiny-profile-column {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.scrutiny-profile-breadcrumb {
+  margin-bottom: 8px;
+}
+
+.scrutiny-profile-crumb-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, #6c757d);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.scrutiny-profile-crumb-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.scrutiny-profile-page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1c21;
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Tabs — generous spacing, inactive grey, active navy icon + text */
+.scrutiny-profile-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px 4px;
+  border-bottom: 1px solid var(--border-solid, #e9ecef);
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.scrutiny-profile-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 12px 14px 0;
+  margin-bottom: -1px;
+  margin-right: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.scrutiny-profile-tab:last-of-type {
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.scrutiny-profile-tab svg {
+  flex-shrink: 0;
+  color: currentColor;
+  opacity: 1;
+}
+
+.scrutiny-profile-tab:hover:not(.scrutiny-profile-tab--active) {
+  color: #495057;
+}
+
+.scrutiny-profile-tab--active {
+  color: var(--primary, #1a3562);
+  border-bottom-color: var(--primary, #1a3562);
+  font-weight: 600;
+}
+
+.scrutiny-profile-tab--active svg {
+  color: var(--primary, #1a3562);
+}
+
+/* Card */
+.scrutiny-profile-card {
+  background: #fff;
+  border: 1px solid var(--border-solid, #e9ecef);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 44px 48px 48px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.scrutiny-profile-photo-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.scrutiny-profile-avatar-placeholder {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: #adb5bd;
+  flex-shrink: 0;
+}
+
+.scrutiny-profile-change-photo {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: #fff;
+  border: 1px solid var(--border-solid, #dee2e6);
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.scrutiny-profile-change-photo:hover {
+  background: var(--surface-hover, #f8f9fa);
+  border-color: #ced4da;
+}
+
+/* Form grid */
+.scrutiny-profile-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 48px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .scrutiny-profile-form-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .scrutiny-profile-form-footer {
+    grid-template-columns: 1fr !important;
+    column-gap: 0 !important;
+  }
+}
+
+.scrutiny-profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scrutiny-profile-form-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 48px;
+  margin-top: 32px;
+  align-items: start;
+}
+
+.scrutiny-profile-actions--profile {
+  margin: 0;
+  padding: 0;
+  grid-column: 1;
+  justify-self: start;
+}
+
+.scrutiny-profile-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.scrutiny-profile-req {
+  color: #dc3545;
+  margin-left: 2px;
+}
+
+.scrutiny-profile-label--req-left {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.scrutiny-profile-label--req-left .scrutiny-profile-req {
+  margin: 0;
+  margin-top: 2px;
+}
+
+.scrutiny-profile-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background: #fff;
+  overflow: hidden;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.scrutiny-profile-input-wrap:focus-within {
+  border-color: var(--primary, #1a3562);
+  box-shadow: 0 0 0 2px rgba(26, 53, 98, 0.12);
+}
+
+.scrutiny-profile-input-wrap--muted {
+  background: #f1f3f5;
+}
+
+.scrutiny-profile-input-wrap--muted:focus-within {
+  border-color: #dee2e6;
+  box-shadow: none;
+}
+
+.scrutiny-profile-input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  flex-shrink: 0;
+  color: var(--text-secondary, #6c757d);
+}
+
+.scrutiny-profile-input-wrap input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 12px 11px 0;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.scrutiny-profile-input-wrap--muted input {
+  padding-left: 12px;
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.scrutiny-profile-actions {
+  margin-top: 28px;
+  padding-top: 4px;
+}
+
+.scrutiny-profile-submit {
+  padding: 10px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary, #1a3562);
+  border: none;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.scrutiny-profile-submit:hover {
+  background: var(--primary-dark, #142a4d);
+}
+
+.scrutiny-profile-activity-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* ---- Layout: profile page help FAB ---- */
+.scrutiny-profile-layout .page-content {
+  position: relative;
+}
+
+/* ---- Sectioned cards (Security / Notifications / Activity) — full column width */
+.scrutiny-profile-card--sectioned {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.scrutiny-profile-card--activity {
+  max-width: 100%;
+}
+
+.scrutiny-profile-card--sectioned .scrutiny-profile-card__header {
+  padding: 22px 32px 18px;
+}
+
+.scrutiny-profile-card__header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-solid, #e9ecef);
+}
+
+.scrutiny-profile-card__title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a2b4c;
+  letter-spacing: -0.02em;
+}
+
+.scrutiny-profile-card__body {
+  padding: 24px;
+}
+
+.scrutiny-profile-card__body--security {
+  padding: 32px 48px 40px;
+}
+
+.scrutiny-profile-card__body--flush {
+  padding: 0;
+}
+
+.scrutiny-profile-card__body--table {
+  padding: 0;
+}
+
+/* Security — password fields */
+.scrutiny-profile-field--full {
+  width: 100%;
+}
+
+.scrutiny-profile-security-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 720px;
+}
+
+.scrutiny-profile-security-form .scrutiny-profile-field {
+  gap: 8px;
+}
+
+.scrutiny-profile-input-wrap--password input {
+  padding: 12px 10px 12px 0;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.scrutiny-profile-input-suffix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary, #6c757d);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.scrutiny-profile-input-suffix:hover {
+  color: var(--text-primary);
+}
+
+.scrutiny-profile-actions--security {
+  margin-top: 12px;
+  padding-top: 0;
+}
+
+.scrutiny-profile-actions--security .scrutiny-profile-submit {
+  min-width: 180px;
+}
+
+/* Notification toggles */
+.scrutiny-profile-pref-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 32px;
+  min-height: 56px;
+  border-bottom: 1px solid var(--border-solid, #e9ecef);
+}
+
+.scrutiny-profile-pref-row--last {
+  border-bottom: none;
+}
+
+.scrutiny-profile-setting-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.scrutiny-profile-setting-text strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1c21;
+  margin-bottom: 2px;
+  line-height: 1.35;
+}
+
+.scrutiny-profile-setting-text span {
+  display: block;
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.45;
+}
+
+.scrutiny-profile-switch {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 14px;
+  background: #dee2e6;
+  padding: 3px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.scrutiny-profile-switch--on {
+  background: var(--primary, #1a3562);
+}
+
+.scrutiny-profile-switch__thumb {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.scrutiny-profile-switch--on .scrutiny-profile-switch__thumb {
+  transform: translateX(20px);
+}
+
+/* Login activity table */
+.scrutiny-profile-table-wrap {
+  overflow-x: auto;
+}
+
+.scrutiny-profile-card--sectioned .scrutiny-profile-activity-table {
+  font-size: 14px;
+}
+
+.scrutiny-profile-card--sectioned .scrutiny-profile-activity-table thead {
+  background: #f8f9fa;
+}
+
+.scrutiny-profile-card--sectioned .scrutiny-profile-activity-table th {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-solid, #e9ecef);
+}
+
+.scrutiny-profile-card--sectioned .scrutiny-profile-activity-table td {
+  padding: 16px 18px;
+  color: #374151;
+  border-bottom: 1px solid var(--border-solid, #e9ecef);
+  vertical-align: middle;
+}
+
+.scrutiny-profile-activity-ts {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.scrutiny-profile-status-success {
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.scrutiny-profile-activity-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 20px 18px;
+  border-top: 1px solid var(--border-solid, #e9ecef);
+  background: #fff;
+}
+
+.scrutiny-profile-pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scrutiny-profile-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary, #6c757d);
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+
+.scrutiny-profile-page-btn:hover:not(:disabled) {
+  background: var(--surface-hover, #f1f3f5);
+  color: var(--text-primary);
+}
+
+.scrutiny-profile-page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.scrutiny-profile-page-current {
+  min-width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary, #1a3562);
+  background: #fff;
+}
+
+/* Floating help */
+.scrutiny-profile-help-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary, #1a3562);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(26, 53, 98, 0.35);
+  transition:
+    transform 0.15s,
+    background 0.15s;
+}
+
+.scrutiny-profile-help-fab:hover {
+  background: var(--primary-dark, #142a4d);
+  transform: scale(1.04);
+}
