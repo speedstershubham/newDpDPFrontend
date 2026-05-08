@@ -18,3 +18,83 @@
 .toast-notification--error {
   background: var(--error);
 }
+
+/* ── Draft Modal ──────────────────────────────────────────── */
+.draft-autosave-banner {
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.draft-autosave-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--info);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.draft-completion {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.draft-completion--high {
+  color: var(--success);
+  background: var(--success-bg);
+}
+
+.draft-completion--mid {
+  color: var(--warning);
+  background: var(--warning-bg);
+}
+
+.draft-completion--low {
+  color: var(--text-secondary);
+  background: var(--background);
+}
+
+/* ── Recycle Bin Modal ────────────────────────────────────── */
+.recycle-retention-banner {
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.recycle-days {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.recycle-days--urgent {
+  color: var(--error);
+  background: var(--error-bg);
+}
+
+.recycle-days--normal {
+  color: var(--warning);
+  background: var(--warning-bg);
+}
+
+/* ── Danger outline button ───────────────────────────────── */
+.btn--outline-danger {
+  background: transparent;
+  border: 1px solid var(--error);
+  color: var(--error);
+}
+
+.btn--outline-danger:hover {
+  background: var(--error-bg);
+}

@@ -1,5 +1,270 @@
-/* BoardMemberDashboard specific styles */
-.hearing-today-badge {
-  background: var(--info);
+/* ═══════════════════════════════════════════════
+   BoardMemberDashboard
+   ═══════════════════════════════════════════════ */
+
+/* Page header */
+.bmd-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.bmd-page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a237e;
+  margin: 0 0 4px;
+}
+.bmd-page-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.bmd-week-select {
+  padding: 7px 32px 7px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #1a1a1a;
+  background: #fff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 10px center;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Stats grid — 6 columns */
+.bmd-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+@media (max-width: 1200px) { .bmd-stats-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px)  { .bmd-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.bmd-stat-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+.bmd-stat-label {
+  font-size: 12px;
+  color: #8c8c8c;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bmd-stat-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+.bmd-stat-value svg { color: #8c8c8c; flex-shrink: 0; }
+.bmd-stat-sub {
+  font-size: 11px;
+  color: #8c8c8c;
+}
+.bmd-stat-sub--up   { color: #52c41a; }
+.bmd-stat-sub--down { color: #52c41a; }
+.bmd-stat-sub--warn { color: #fa8c16; }
+
+/* Section card */
+.bmd-section-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.bmd-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.bmd-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Join Hearing Room button */
+.bmd-join-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #1a237e;
   color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.bmd-join-btn:hover { background: #283593; }
+
+/* Table */
+.bmd-table-wrap {
+  overflow-x: auto;
+}
+.bmd-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.bmd-table th {
+  padding: 11px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #595959;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+  white-space: nowrap;
+}
+.bmd-th--highlight {
+  color: #e8871a !important;
+}
+.bmd-table td {
+  padding: 14px 20px;
+  color: #1a1a1a;
+  border-bottom: 1px solid #f5f5f5;
+  vertical-align: middle;
+}
+.bmd-table tbody tr:last-child td { border-bottom: none; }
+.bmd-table tbody tr:hover td { background: #fafcff; }
+
+.bmd-grn {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: #1a1a1a;
+}
+.bmd-hearing-dt {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bmd-hearing-date {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.bmd-hearing-time {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+.bmd-bench-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #595959;
+  background: #fafafa;
+}
+.bmd-view-case-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.bmd-view-case-btn:hover { opacity: 0.7; }
+.bmd-empty-row {
+  text-align: center;
+  padding: 28px;
+  color: var(--text-secondary);
+}
+
+/* Quick Actions */
+.bmd-quick-actions {
+  display: flex;
+  gap: 12px;
+  padding: 18px 20px;
+  flex-wrap: wrap;
+}
+.bmd-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.bmd-quick-btn:hover { border-color: var(--primary); color: var(--primary); background: #f0f5ff; }
+
+/* Expert opinion modal helpers */
+.bmd-expert-case-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 14px;
+  background: #f5f7ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+.bmd-expert-grn {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.bmd-expert-subject {
+  font-size: 13px;
+  color: #3d3d3d;
+}
+.bmd-expert-selected-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f6ffed;
+  border: 1px solid #b7eb8f;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+.bmd-expert-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.bmd-expert-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.bmd-expert-spec {
+  font-size: 12px;
+  color: #595959;
+}
+.bmd-expert-org {
+  font-size: 11px;
+  color: #8c8c8c;
 }
