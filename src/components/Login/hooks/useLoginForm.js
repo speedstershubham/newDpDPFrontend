@@ -1,6 +1,25 @@
 import { useState } from "react";
-import { OTP_LENGTH } from "../helpfunction/constants";
+import { OTP_LENGTH, getRoleId } from "../helpfunction/constants";
+import { ROLE_CONFIGS } from "../../RoleDashboard/roleConfigs";
 
+/**
+ * Simulates what a real backend login response would look like.
+ * The backend returns: { role, roleId, id, name, email, tenantId, dashboardConfig }
+ * dashboardConfig drives what stat-cards and table columns appear — no extra front-end
+ * code is needed when a new role is added.
+ */
+function buildUserFromBackend(role, extra = {}) {
+  return {
+    role,
+    roleId:          getRoleId(role),
+    id:              `user-${Date.now()}`,
+    tenantId:        "tenant-dpdp",
+    // The backend returns this — locally we look it up from ROLE_CONFIGS
+    // In production: replace ROLE_CONFIGS[role] with the API response field
+    dashboardConfig: ROLE_CONFIGS[role] ?? null,
+    ...extra,
+  };
+}
 export function useLoginForm(onLogin) {
   const [activeTab, setActiveTab] = useState("citizen");
   const [citizenStep, setCitizenStep] = useState(0);
@@ -38,7 +57,7 @@ export function useLoginForm(onLogin) {
         setCitizenErr("Please enter the complete 6-digit OTP.");
         return;
       }
-      onLogin({ role: "data-principal", name: "Rahul Kumar", id: idType });
+      onLogin(buildUserFromBackend("data-principal", { name: "Rahul Kumar", idType }));
     }
   };
 
@@ -53,7 +72,7 @@ export function useLoginForm(onLogin) {
       setOfficialErr("Please enter your password.");
       return;
     }
-    onLogin({ role, name: username, email: username });
+    onLogin(buildUserFromBackend(role, { name: username, email: username }));
   };
 
   return {
